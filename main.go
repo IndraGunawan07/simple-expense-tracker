@@ -2,7 +2,6 @@ package main
 
 import (
 	"database/sql"
-	"fmt"
 	"log"
 	"os"
 
@@ -10,7 +9,6 @@ import (
 	"expense-tracker/database"
 
 	"github.com/gin-gonic/gin"
-	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 )
 
@@ -20,20 +18,22 @@ var (
 )
 
 func main() {
-	err := godotenv.Load("config/.env")
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
+	// err := godotenv.Load("config/.env")
+	// if err != nil {
+	// 	log.Fatal("Error loading .env file")
+	// }
 
-	psqlInfo := fmt.Sprintf(`host=%s port=%s user=%s password=%s dbname=%s sslmode=disable`,
-		os.Getenv("PGHOST"),
-		os.Getenv("PGPORT"),
-		os.Getenv("PGUSER"),
-		os.Getenv("PGPASSWORD"),
-		os.Getenv("PGDATABASE"),
-	)
+	dbURL := os.Getenv("DATABASE_URL")
 
-	DB, err = sql.Open("postgres", psqlInfo)
+	// psqlInfo := fmt.Sprintf(`host=%s port=%s user=%s password=%s dbname=%s sslmode=disable`,
+	// 	os.Getenv("PGHOST"),
+	// 	os.Getenv("PGPORT"),
+	// 	os.Getenv("PGUSER"),
+	// 	os.Getenv("PGPASSWORD"),
+	// 	os.Getenv("PGDATABASE"),
+	// )
+
+	DB, err = sql.Open("postgres", dbURL)
 
 	if err != nil {
 		log.Fatalf("Error opening database: %v\n", err)
