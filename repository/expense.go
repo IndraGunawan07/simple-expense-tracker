@@ -19,7 +19,7 @@ func GetAllExpense(db *sql.DB, userID int) (result []structs.Expense, err error)
 	for rows.Next() {
 		var expense structs.Expense
 
-		err = rows.Scan(&expense.ID, &expense.UserID, &expense.CategoryID, &expense.Types, &expense.Dates, &expense.CreatedAt, &expense.UpdatedAt)
+		err = rows.Scan(&expense.ID, &expense.UserID, &expense.CategoryID, &expense.Types, &expense.Dates, &expense.Amount, &expense.Description, &expense.CreatedAt, &expense.UpdatedAt)
 		if err != nil {
 			return
 		}
